@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CDN -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootsrap CDN & Icons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../static/css/pageCss.css" th:href="@{/css/pageCss.css}" >
+
+    <title>Admin Accounting</title>
+</head>
+<body>
+<div class="container">
+    <div class="header-title">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="left d-flex align-items-center justify-content-left">
+                <img th:src="@{/images/alliance_logo.svg}" alt="">
+                <h2>Alliance Claims Application</h2>
+            </div>
+            <div class="right">
+                <button class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="pt-5 mb-4">
+        <div class="profile-info pb-2">
+            <div class="profile-title">
+                <h5 class="text-left">Profile</h5>
+            </div>
+            <div class="profile-card">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="profile-name">
+                            <h6>Junky Dubs</h6>
+                            <p>abc@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="profile-desc">
+                            <h6>acctng-1</h6>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="profile-action d-flex align-items-center justify-content-end">
+                            <div class="pr-2">
+                                <button class="edit"  data-toggle="modal" data-target="#editInfo" >Edit</button>
+                            </div>
+                            <div class="pr-1">
+                                <button class="change" data-toggle="modal" data-target="#changePass" >Change Password</button>
+                            </div>
+                            <i class='bx bxs-trash' ></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <div class="tab pt-2 d-flex align-items-center justify-content-start">
+            <div class="user-profile active-menu" data-target-tab="#user">
+                <h5>User Profiles</h5>
+            </div>
+            <div class="claims" data-target-tab="#claims">
+                <h5>Claims</h5>
+            </div>
+        </div>
+
+        <div class="content-details row flex-column active pt-2"  id="user">
+            <div class="content p-3">
+                <h5>User List</h5>
+                <div class="table-card">
+
+                    <div class="sort d-flex align-items-center justify-content-between pr-3">
+                        <h6>Search: </h6>
+                        <input type="text">
+                        <select name="" >
+                            <option value="">All</option>
+                            <option value="">Techical</option>
+                            <option value="">Accounting</option>
+                            <option value="">Sales</option>
+                        </select>
+                    </div>
+
+                    <div class="add-but text-right pt-3 pb-2 pr-3">
+                        <button data-toggle="modal" data-target="#addUser">Add User</button>
+                    </div>
+
+                    <div class="data pt-3">
+
+                        <div class="data-card p-3 m-2">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-4">
+                                    <h6 class="name">Junky Dubs</h6>
+                                </div>
+                                <div class="col-4">
+                                    <p class="email">abc@gmail.com</p>
+                                </div>
+                                <div class="col-2">
+                                    <h6 class="position">Tech</h6>
+                                </div>
+                                <div class="col-2 text-right">
+                                    <i class='bx bxs-trash' ></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-card p-3 m-2">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-4">
+                                    <h6 class="name">Junky Dubs</h6>
+                                </div>
+                                <div class="col-4">
+                                    <p class="email">abc@gmail.com</p>
+                                </div>
+                                <div class="col-2">
+                                    <h6 class="position">Tech</h6>
+                                </div>
+                                <div class="col-2 text-right">
+                                    <i class='bx bxs-trash' ></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="content-details row flex-column pt-2" id="claims">
+            <div class="content p-3">
+                <h5>Claims List</h5>
+                <div class="claims-card">
+
+                    <div class="sort d-flex align-items-center justify-content-around pr-3">
+                        <h6>Search: </h6>
+                        <input class="searchbar" type="text">
+                        <input type="date">
+                        <select name="" >
+                            <option value="">All</option>
+                            <option value="">Techical</option>
+                            <option value="">Accounting</option>
+                            <option value="">Sales</option>
+                        </select>
+                    </div>
+
+                    <div class="claims-table">
+                        <table>
+                            <tr>
+                                <th>Status</th>
+                                <th>Billing Date</th>
+                                <th>Transaction No.</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Invoice</th>
+                            </tr>
+                            <tr class="table-data"  data-toggle="modal" data-target="#claimsModal">
+                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#08B64E; background-color: #94EBB7; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
+                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#FFC107; background-color: #FDEAB0; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
+                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#E70A0A; background-color: #FFA4A4; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
+                                <td class="text-center" ><i class='bx bxs-circle' style="color:#F8AF8A; background-color: #FADFD2; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td>
+                                <td><p>2022-05-18</p></td>
+                                <td><p>2205181249295292	</p></td>
+                                <td><p>Junky Dubs</p></td>
+                                <td><p>Jollibee</p></td>
+                                <td>
+                                    <button>Download</button>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- MODAL -->
+
+        <!-- Edit Information -->
+        <div class="modal fade" id="editInfo" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title">Edit Information</h5>
+                    <div class="modal-body d-flex flex-column">
+                        <label for="">First Name</label>
+                        <input type="text">
+                        <div class="p-2"></div>
+                        <label for="">Last Name</label>
+                        <input type="text">
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-success">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Password -->
+        <div class="modal fade" id="changePass" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title">Change Password</h5>
+                    <div class="modal-body d-flex flex-column">
+                        <label for="">Current Password</label>
+                        <input type="text">
+                        <div class="p-3"></div>
+                        <label for="">New Password</label>
+                        <input type="text">
+                        <div class="p-1"></div>
+                        <label for="">Confirm Password</label>
+                        <input type="text">
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-success">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add User -->
+        <div class="modal fade" id="addUser" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Create User</h5>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="d-flex align-items-start flex-column">
+                                    <label for="" class="pt-2">First Name</label>
+                                    <input type="text">
+                                    <label for="" class="pt-2">Email</label>
+                                    <input type="text">
+                                    <label for="" class="pt-2">Current Password</label>
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-start flex-column">
+                                    <label for="" class="pt-2">Last Name</label>
+                                    <input type="text">
+                                    <label for="" class="pt-2">Password</label>
+                                    <input type="text">
+                                    <label for="" class="pt-2">Department</label>
+                                    <select name="" id="">
+                                        <option value="">Sales Team</option>
+                                        <option value="">Accounting</option>
+                                        <option value="">Technical Support</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-success">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- CLAIMS MODAL -->
+
+        <!-- Claim Information -->
+        <div class="modal fade" id="claimsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <h5 class="modal-title" >Claim Information</h5>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="modal-info">
+                                    <h6>Claim status</h6>
+                                    <h6>Transaction Number</h6>
+                                    <h6>Issued by</h6>
+                                    <h6>Company</h6>
+                                    <h6>Commission</h6>
+                                    <h6>Net Amount</h6>
+                                    <h6>Billing Date</h6>
+                                    <h6>Release Date</h6>
+                                    <h6>Collection Date</h6>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <div class="double">
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0" >:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                    <p class="m-0">:</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="modal-info-data">
+                                    <h6>for commission release</h6>
+                                    <h6>2205181126475474</h6>
+                                    <h6>Junky Dubs</h6>
+                                    <h6>Jollibee</h6>
+                                    <h6>Commission is not yet released</h6>
+                                    <h6>Net amount not settled</h6>
+                                    <h6>2022-05-18</h6>
+                                    <h6>No release date yet</h6>
+                                    <h6>Claim is not yet collected</h6>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-6">
+                                <label for="" class="pt-2">Commission Rate: </label>
+                                <input type="text">
+                            </div>
+                            <div class="col-6">
+                                <label for="" class="pt-2">Net Amount:</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-success">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</div>
+</body>
+
+<script type="text/javascript">
+
+    // MENU
+    $(document).on('click','claims',function(){
+        $(this).addClass('active-menu');
+        $(".claims").removeClass('active-menu');
+    });
+
+    $(document).on('click','.user-profile',function(){
+        $(this).addClass('active-menu');
+        $(".user-profile").removeClass('active-menu');
+    });
+
+
+    // TAB CONTENT
+    const tab_btns = document.querySelectorAll("[data-target-tab]");
+    const tab_contents = document.querySelectorAll(".content-details");
+
+    tab_btns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        tab_btns.forEach((btn) => btn.classList.remove("active"));
+        tab_contents.forEach((btn) => btn.classList.remove("active"));
+
+        btn.classList.toggle("active");
+        document.querySelector(btn.dataset.targetTab).classList.add("active");
+    });
+    });
+</script>
+</html>
