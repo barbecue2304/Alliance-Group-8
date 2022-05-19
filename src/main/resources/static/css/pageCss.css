@@ -1,0 +1,404 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+button{
+    outline: none !important;
+}
+.header-title{
+    padding-top: 30px ;
+}
+.header-title h2{
+    margin: 0;
+    color: #50423C;
+}
+.header-title img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.header-title .right button{
+    /* background-color: #f45b5b; */
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 5px 30px 5px 30px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+.header-title .right button:hover{
+    background-color: #f30808;
+    color: #FFFFFF;
+}
+
+/* Content */
+.profile-info .profile-card{
+    padding: 15px;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+}
+.profile-info .profile-card .profile-name h6{
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+.profile-info .profile-card .profile-name p{
+    font-size: 11px;
+    margin: 0;
+}
+.profile-info .profile-card .profile-desc{
+    border-left: 1px solid #7B7575;
+}
+.profile-info .profile-card .profile-desc h6{
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0;
+    padding-left: 10px;
+    color: #F00B0B;
+}
+.profile-info .profile-card .profile-action button{
+    border: 1px solid #7B7575;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    cursor: pointer;
+}
+.profile-info .profile-card .profile-action button:hover{
+    color: #F00B0B;
+    border: 1px solid #F00B0B;
+    font-weight: 500;
+}
+.profile-info .profile-card .profile-action .edit{
+    padding: 5px 50px 5px 50px;
+    color: #7B7575;
+}
+.profile-info .profile-card .profile-action .change{
+    padding: 8px 20px 8px 20px;
+    font-size: 12px;
+    color: #7B7575;
+
+}
+.profile-info .profile-card .profile-action i{
+    font-size: 25px;
+    padding-left: 10px;
+    color:#7B7575;
+    cursor: pointer;
+}
+.profile-info .profile-card .profile-action i:hover{
+    color: #F00B0B;
+}
+
+.tab .user-profile{
+    padding-right: 20px;
+}
+.tab .claims h5 {
+    border-left: 3px solid #7B7575;
+    padding-left: 20px;
+    font-weight: 700;
+    color: #A7A1A1;
+    cursor: pointer;
+}
+.tab .user-profile h5 {
+    color: #A7A1A1;
+    font-weight: 700;
+    cursor: pointer;
+}
+.active-menu {
+    color: #0c0b0b;
+}
+/* Content Details */
+.content-details {
+    display: none;
+  }
+
+.content-details.active {
+    display: flex;
+    flex:column;
+  }
+
+
+/* Table  */
+.content-details .table-card {
+    padding: 15px;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+}
+
+.content-details .table-card .sort h6{
+    font-weight: 600;
+    margin: 0;
+    margin-left: 50px;
+}
+.content-details .table-card .sort input{
+    border: none;
+    background-color: #FFFFFF;
+    width: 600px;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 11px;
+}
+.content-details .table-card .sort select{
+    padding: 5px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.content-details .table-card .add-but button{
+    padding: 5px 20px 5px 20px;
+    color: #FFFFFF;
+    background-color: #F00B0B;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.content-details .table-card .add-but button:hover{
+    color: #FFFFFF;
+    background-color: #cb0000;
+
+}
+.data{
+    height: 30vh;
+    overflow-y: auto;
+}
+.data .data-card{
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.data .data-card .name, .data .data-card .email {
+    border-right: 1px solid #7B7575;
+}
+.data .data-card h6, .data .data-card p{
+    margin: 0;
+}
+.data .data-card .name {
+    font-weight: 700;
+    padding-left: 20px;
+}
+.data .data-card .email {
+    padding-left: 20px;
+}
+.data .data-card .position {
+    padding-left: 20px;
+    color: #F00B0B;
+}
+.data .data-card i:hover{
+    color: #F00B0B;
+    cursor: pointer;
+}
+
+.content-details .claims-card {
+    padding: 15px;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+}
+.content-details .claims-card .sort h6{
+    font-weight: 600;
+    margin: 0;
+    margin-left: 50px;
+}
+.content-details .claims-card .sort .searchbar{
+    border: none;
+    background-color: #FFFFFF;
+    width: 600px;
+    outline: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 11px;
+}
+.content-details .claims-card .sort select{
+    padding: 5px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.content-details .claims-card .claims-table {
+    padding: 10px;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-details .claims-card .claims-table tr th{
+    padding: 48px 48px 10px 48px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.content-details .claims-card .claims-table tr td{
+    padding: 10px 48px 10px 48px;
+    text-align: center;
+    cursor: pointer;
+}
+.content-details .claims-card .claims-table .table-data:hover{
+    background-color: #fff9f9;
+    border-radius: 5px;
+}
+.content-details .claims-card .claims-table tr td p{
+    margin: 0;
+    color: #454242;
+    font-size: 12px;
+}
+.content-details .claims-card .claims-table tr td button{
+    color: #FFFFFF;
+    background-color: #4285F4;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.content-details .claims-card .claims-table tr td button:hover{
+    color: #FFFFFF;
+    background-color: #0d64f0;
+}
+/* MODAL CONTENT */
+.modal-content{
+    padding: 20px;
+    background-color: #F2F2F2;
+}
+.modal-content h5{
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+    color: #F00B0B;
+}
+.modal-body label{
+    font-size: 12px;
+    margin: 0;
+}
+.modal-body input {
+    outline: none;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    padding: 8px;
+    font-size: 12px;
+    border: none;
+    outline: none;
+}
+.modal-body select{
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+.modal-body .modal-info h6{
+    margin: 0;
+    text-align: left;
+    padding: 5px;
+    font-size: 12px;
+}
+.modal-body .modal-info-data h6{
+    margin: 0;
+    text-align: left;
+    padding: 5.6px;
+    font-size: 11px;
+    color: #969393;
+}
+.modal-body .modal-info .double p{
+    margin: 0;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+
+
+
+/* ========================================================================================== */
+
+  /* USER SIDE CSS */
+.user-card {
+    border-radius: 10px;
+    background-color: #F2F2F2;
+    padding: 20px;
+}
+.user-data .create-but button{
+    border: none;
+    outline: none;
+    padding: 10px 80px 10px 80px;
+    background-color: #F00B0B;
+    color: #FFFFFF;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.user-data .create-but button:hover{
+    background-color: #c60000;
+    color: #FFFFFF;
+}
+.user-data .user-card img{
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.user-data .user-card i{
+    font-size: 25px;
+    cursor: pointer;
+    color: #F00B0B;
+}
+.user-data .user-card .user-info-all{
+    display: flex;
+    align-items: center;
+}
+.user-data .user-card .user-info-all h3{
+    margin: 0;
+    font-weight: 600;
+}
+.user-data .user-card .user-info-all p{
+    margin: 0;
+    color: #969393;
+}
+.user-data .user-card .user-info-all h6{
+    margin: 0;
+    color: #F00B0B;
+    font-weight: 500;
+}
+.user-data .user-card .action-but button{
+    padding: 10px;
+    border: 1px solid #7B7575;
+    outline: none;
+    border-radius: 5px;
+    color: #7B7575;
+    cursor: pointer;
+}
+.user-data .user-card .action-but button:hover{
+    border: 2px solid #F00B0B;
+    color: #F00B0B;
+    font-weight: 500;
+}
+.user-data .user-card .log-out button{
+    border: none;
+    padding: 10px 170px 10px 180px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    /* background-color: #f30808; */
+}
+
+/* need more css*/
