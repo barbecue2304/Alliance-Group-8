@@ -96,5 +96,13 @@ public class UserController {
         userService.editSessionNameService(id, firstName, lastName);
     }
 
+    @GetMapping("/adminAccounting")
+    public String viewAdminAccounting(){
+        return "AdminAccounting";
+    }
 
+    @GetMapping("/claimsEmployee")
+    public String viewClaimsEmployee(){
+        return "claimsEmployee";
+    }
 }
