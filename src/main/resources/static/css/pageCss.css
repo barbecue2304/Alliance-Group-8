@@ -10,13 +10,15 @@ button{
     padding-top: 30px ;
 }
 .header-title h2{
+    padding-left:8px;
     margin: 0;
     color: #50423C;
 }
 .header-title img{
-    width: 40px;
+    width: 120px;
     height: 40px;
     object-fit: cover;
+    border-radius:5px;
 }
 .header-title .right button{
     /* background-color: #f45b5b; */
