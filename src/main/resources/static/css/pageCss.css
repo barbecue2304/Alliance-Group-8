@@ -403,4 +403,51 @@ button{
     /* background-color: #f30808; */
 }
 
-/* need more css*/
+/* LOGIN PAGE */
+
+.login-div .login-card{
+    padding: 30px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 3px 3px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 110px 350px 130px 350px;
+}
+
+.login-div .login-card .text-center img{
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+.login-div .login-card .text-desc .welcome{
+    font-size: 25px;
+    margin: 0;
+    font-weight: 500;
+    color: #252424;
+}
+.login-div .login-card .text-desc .pls{
+    font-size: 10px;
+}
+.login-div .login-card .input-details input{
+    padding: 7px;
+    border-radius: 5px;
+    border: 1px solid #747373;
+    outline: none;
+    font-size: 13px;
+    color: #50423C;
+}
+.login-div .login-card .sign-but button{
+    padding: 7px 150px 7px 150px;
+    font-size: 13px;
+    border-radius: 5px;
+    background-color: #FE0000;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-weight: 600;
+    cursor: pointer;
+}
+.login-div .login-card .sign-but button:hover{
+    background-color: #e10000;
+    color: #FFFFFF;
+}
