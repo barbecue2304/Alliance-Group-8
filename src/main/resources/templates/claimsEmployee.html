@@ -6,8 +6,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Bootsrap CDN & Icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -42,11 +40,12 @@
 
                     <div class="row pt-3 user-info-all">
                         <div class="col-9">
-                            <h3>Junky Dubs Dublin</h3>
-                            <p>ab23324121rfwefc@gmail.com</p>
+                            <p th:text="${session.user.id}" id="user_id" style="display:none;"></p>
+                            <h3 th:text="${session.user.fullName}"></h3>
+                            <p th:text="${session.user.email}"></p>
                         </div>
                         <div class="col-3 text-right">
-                            <h6>Sales</h6>
+                            <h6 th:text="${session.user.usertype}"></h6>
                         </div>
                     </div>
 
@@ -55,12 +54,12 @@
                             <button data-toggle="modal" data-target="#newPass">Change Password</button>
                         </div>
                         <div class="deac ">
-                            <button>Delete Account</button>
+                            <button id="del_btn" data-toggle="modal" data-target="#deleteSessionUserModal">Delete Account</button>
                         </div>
                     </div>
 
                     <div class="log-out text-center pt-4">
-                        <button class="btn btn-dark">Logout</button>
+                        <a th:href="@{/logout}"><button class="btn btn-dark">Logout</button></a>
                     </div>
                 </div>
             </div>
@@ -73,29 +72,48 @@
     </div>
 
     <!-- MODAL -->
+    <!-- Modal delete Account triggered  #deleteSessionUser -->
+    <div class="modal fade center" id="deleteSessionUserModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6>Delete your profile</h6>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2 modal-body-label text-center my-2">Are you sure you want to delete your account?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancelModal" data-dismiss="modal">Cancel</button>
+                    <a th:href="@{/employee/delete/}+${session.user.id}" id="deleteProfileButton" class="confirmModal">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Edit Information -->
     <div class="modal fade" id="editProf" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <h5 class="modal-title">Edit Information</h5>
+                <form th:action="@{/employee/edit/}+${session.user.id}" method="post">
                 <div class="modal-body d-flex flex-column">
-                    <label >First Name</label>
-                    <input type="text">
+                    <label>First Name</label>
+                    <input type="text" th:name="firstName" th:value="${session.user.firstName}">
                     <div class="p-2"></div>
                     <label>Last Name</label>
-                    <input type="text">
+                    <input type="text" th:name="lastName" th:value="${session.user.lastName}">
                     <div class="p-2"></div>
                     <label >Email</label>
-                    <input type="text">
+                    <input type="text" th:name="email" th:value="${session.user.email}">
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
                     <div class="pr-3 pt-3">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                     </div>
                     <div class="pr-3 pt-3">
-                        <button type="button" class="btn btn-success">Save changes</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -105,24 +123,26 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <h5 class="modal-title">Change Password</h5>
+                <form th:action="@{/employee/editPass/}+${session.user.id}" method="post">
                 <div class="modal-body d-flex flex-column">
                     <label>Current Password</label>
-                    <input type="text">
+                    <input type="password" th:name="curr_password" required>
                     <div class="p-3"></div>
                     <label>New Password</label>
-                    <input type="text">
+                    <input type="password" th:name="password" required>
                     <div class="p-1"></div>
                     <label>Confirm Password</label>
-                    <input type="text">
+                    <input type="password" required>
                 </div>
                 <div class="d-flex align-items-center justify-content-end">
                     <div class="pr-3 pt-3">
                         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                     </div>
                     <div class="pr-3 pt-3">
-                        <button type="button" class="btn btn-success">Save changes</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -131,22 +151,24 @@
     <div class="modal fade" id="create-claim" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <h5 class="modal-title" id="exampleModalLongTitle">Edit Information</h5>
-                <div class="modal-body d-flex flex-column">
-                    <label>Company Name</label>
-                    <input type="text">
-                    <div class="p-2"></div>
-                    <label>Upload Receipt / Invoice</label>
-                    <input type="file">
-                </div>
-                <div class="d-flex align-items-center justify-content-end">
-                    <div class="pr-3 pt-3">
-                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Claim</h5>
+                <form th:action="@{/claims/addClaim}" method="post" enctype="multipart/form-data">
+                    <div class="modal-body d-flex flex-column">
+                        <label>Company Name</label>
+                        <input type="text" id="company" name="company" required />
+                        <div class="p-2"></div>
+                        <label>Upload Receipt / Invoice</label>
+                        <input name="invoice" type="file" required />
                     </div>
-                    <div class="pr-3 pt-3">
-                        <button type="button" class="btn btn-success">Submit</button>
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="pr-3 pt-3">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="pr-3 pt-3">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -155,3 +177,23 @@
 
 </body>
 </html>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"-->
+<!--        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script type="text/javascript">-->
+<!--    var sessionID = $("#user_id").text();-->
+<!--        $("#deleteProfileButton").click(function(){-->
+<!--            $.ajax({-->
+<!--              url: "/user/deleteSessionUser",-->
+<!--              type: "POST",-->
+<!--              data:{-->
+<!--                id: sessionID-->
+<!--                },-->
+<!--              success: function(data)-->
+<!--              {-->
+<!--                window.location = '';-->
+<!--              }-->
+<!--           });-->
+<!--        });-->
+<!--</script>-->
