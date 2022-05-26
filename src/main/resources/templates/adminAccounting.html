@@ -81,7 +81,7 @@
 
                     <div class="sort d-flex align-items-center justify-content-between pr-3">
                         <h6>Search: </h6>
-                        <input type="text">
+                        <input type="text" id="search_field2">
                         <select name="" >
                             <option value="">All</option>
                             <option value="">Techical</option>
@@ -96,7 +96,7 @@
 
                     <div class="data pt-3">
 
-                        <div class="data-card p-3 m-2" th:each="user : ${users}" th:if="${user.id} != ${session.user.id}">
+                        <div class="data-card p-3 m-2" th:each="user : ${users}" th:if="${user.id} != ${session.user.id}" id="userslist">
                             <div class="row d-flex align-items-center">
                                 <div class="col-4">
                                     <h6 class="name" th:text="${user.fullName}"></h6>
@@ -418,8 +418,7 @@
 </script>
 
 <script>
-    $(document).on('click','#save-btn',function(e){     
-        e.preventDefault(); 
+    $(document).on('click','#save-btn',function(e){
         currentPassword = $("#adminCurrPass").val();
         adminID = $("#adminID").val();
         $.ajax({
@@ -428,6 +427,7 @@
                 data:{cpass:currentPassword, admID:adminID},
                 success: function(data){
                     if (data == "Not matched") {
+                        e.preventDefault();
                         swal(
                             'User Not Found',
                             'Make sure your current password is correct',
