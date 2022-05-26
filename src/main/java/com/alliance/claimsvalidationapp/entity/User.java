@@ -34,6 +34,13 @@ public class User {
     private String usertype;
 
     @Column(name = "user_status", columnDefinition = "VARCHAR(50)")
-    private String userStatus;
+    private String userStatus = "Online";
+
+    @Transient
+    private String fullName;
+    @Transient
+    public String getFullName(){
+        return firstName+" "+lastName;
+    }
 
 }

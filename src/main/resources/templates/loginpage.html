@@ -21,25 +21,26 @@
     <div class="login-div align-items-center justify-content-center">
         <div class="login-card">
             <div class="text-center">
-                <img src="alliance.svg" alt="">
+                <img th:src="@{images/alliance.svg}" alt="">
             </div>
 
             <div class="text-desc pt-2">
                 <p class="welcome text-center">Welcome to Alliance</p>
                 <p class="pls text-center">Please input log in credentials.</p>
             </div>
-
+            <form th:action="@{/login}" method="post">
             <div class="input-details d-flex flex-column">
                 <label>Email</label>
-                <input type="text">
+                <input type="email" th:name="email">
 
-                <label class="pt-3">Password</label>
-                <input type="text">
+                <label class="pt-3" >Password</label>
+                <input type="password" th:name="password">
             </div>
 
             <div class="sign-but text-center pt-4">
-                <button>Sign in</button>
+                <button type="submit">Sign in</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
