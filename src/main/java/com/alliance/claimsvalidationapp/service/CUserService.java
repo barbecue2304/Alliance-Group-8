@@ -24,9 +24,12 @@ public class CUserService {
         }
         throw new IllegalStateException("User not found!");
     }
-    public void addUser(User user){
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userRepo.save(user);
+    
+    public void addUser(User user, String confPass){
+        if(user.getPassword().equals(confPass)){
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userRepo.save(user);
+        }
     }
     public List<User> getAllUser(){
         return userRepo.findAll();
@@ -60,5 +63,12 @@ public class CUserService {
             user.setPassword(new BCryptPasswordEncoder().encode(new_password));
             userRepo.save(user);
         }
+    }
+    public String currentPassword(Long admID, String curr_password){
+        User user = userRepo.findById(admID).get();
+        if(new BCryptPasswordEncoder().matches(curr_password, user.getPassword())){
+            return "match";
+        }
+        return "Not matched";
     }
 }
