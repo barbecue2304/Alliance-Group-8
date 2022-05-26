@@ -451,3 +451,43 @@ button{
     background-color: #e10000;
     color: #FFFFFF;
 }
+
+.statusDefault {
+    color:#fff;
+    background-color: #fff;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.statusForCollect {
+    color:#08B64E;
+    background-color: #94EBB7;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.statusForRelease {
+    color:#FFC107;
+    background-color: #FDEAB0;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.statusCollected {
+    color:#F8AF8A;
+    background-color: #FADFD2;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.statusOverdue {
+    color:#E70A0A;
+    background-color: #FFA4A4;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+}

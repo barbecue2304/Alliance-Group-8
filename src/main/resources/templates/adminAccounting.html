@@ -148,20 +148,16 @@
                                 <th>Company</th>
                                 <th>Invoice</th>
                             </tr>
-                            <tr class="table-data"  data-toggle="modal" data-target="#claimsModal">
-                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#08B64E; background-color: #94EBB7; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
-                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#FFC107; background-color: #FDEAB0; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
-                                <!-- <td class="text-center" ><i class='bx bxs-circle' style="color:#E70A0A; background-color: #FFA4A4; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td> -->
-                                <td class="text-center" ><i class='bx bxs-circle' style="color:#F8AF8A; background-color: #FADFD2; padding: 10px 20px 10px 20px; border-radius: 5px; font-size: 12px;" ></i></td>
-                                <td><p>2022-05-18</p></td>
-                                <td><p>2205181249295292	</p></td>
-                                <td><p>Junky Dubs</p></td>
-                                <td><p>Jollibee</p></td>
+                            <tr class="table-data"  data-toggle="modal" data-target="#claimsModal" th:each="claimData : ${claims}" th:attr="claimid=${claimData.id}" claimStat="">
+                                <td class="text-center" ><i class='bx bxs-circle status_display' th:attr="claimid=${claimData.id}"></i></td>
+                                <td><p th:text="${claimData.billing_date}"></p></td>
+                                <td><p th:text="${claimData.transactionNo}"></p></td>
+                                <td><p th:text="${claimData.user.fullName}"></p></td>
+                                <td><p th:text="${claimData.company}"></p></td>
                                 <td>
-                                    <button>Download</button>
+                                    <a th:href="@{'/claim/download?id=' + ${claimData.id}}"><button>Download</button></a>
                                 </td>
                             </tr>
-
                         </table>
                     </div>
                 </div>
@@ -314,36 +310,41 @@
                             </div>
                             <div class="col-6">
                                 <div class="modal-info-data">
-                                    <h6>for commission release</h6>
-                                    <h6>2205181126475474</h6>
-                                    <h6>Junky Dubs</h6>
-                                    <h6>Jollibee</h6>
-                                    <h6>Commission is not yet released</h6>
-                                    <h6>Net amount not settled</h6>
-                                    <h6>2022-05-18</h6>
-                                    <h6>No release date yet</h6>
-                                    <h6>Claim is not yet collected</h6>
+                                    <h6 id="claimStat_display">for commission release</h6>
+                                    <h6 id="transactionNo_display">2205181126475474</h6>
+                                    <h6 id="userFullName_display">Junky Dubs</h6>
+                                    <h6 id="company_display">Jollibee</h6>
+                                    <h6 id="commission_display">Commission is not yet released</h6>
+                                    <h6 id="net_display">asdasd</h6>
+                                    <h6 id="billingDate_display">2022-05-18</h6>
+                                    <h6 id="releaseDate_display">No release date yet</h6>
+                                    <h6 id="collectionDate_display">Claim is not yet collected</h6>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="row pt-2">
-                            <div class="col-6">
-                                <label class="pt-2">Commission Rate: </label>
-                                <input type="text">
+                        <div class="my-3" id="commissionUpdateDiv" style="display: none;">
+                            <div class="d-flex justify-content-between align-items-center commissionUpdate" >
+                                <div>
+                                    <label class="pt-2">Commission Rate: </label>
+                                    <input type="text" id="commission_input" class="w-75 mr-2">
+                                </div>
+                                <div>
+                                    <label class="pt-2">Net Amount:</label>
+                                    <input type="text" id="netAmount_input" class="w-75 ml-2">
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label class="pt-2">Net Amount:</label>
-                                <input type="text">
+                            <div class="text-right mt-3">
+                                <button id="submitCom" type="button" class="btn btn-success">Save changes</button>
                             </div>
+                        </div>
+                        <div class="my-3" id="tagClaimAsCollected" style="display: none;">
+                            <button id="claimDone" type="button" class="btn btn-warning">Tag as collected</button>
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-end">
                         <div class="pr-3 pt-3">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                        </div>
-                        <div class="pr-3 pt-3">
-                            <button type="button" class="btn btn-success">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -353,8 +354,97 @@
     </section>
 </div>
 </body>
-
 <script type="text/javascript">
+    var selectedClaim;
+    //setStatus display
+    $(document).ready(function(){
+        $(".status_display").each(function(){
+           var claimid = $(this).attr("claimid");
+           var elementDisp = $(this);
+           var setTRStat = $(this).parent().parent();
+           $.ajax({
+                url: "/claim/getClaimStatus",
+                type: "GET",
+                data: {
+                    id: claimid
+                },
+                success: function(data){
+                    if(data == "for commission release"){
+                        elementDisp.addClass("statusForRelease");
+                        setTRStat.attr("claimStat", "for commission release");
+                    }
+                    if(data == "for collection"){
+                        elementDisp.addClass("statusForCollect");
+                        setTRStat.attr("claimStat", "for collection");
+                    }
+                    if(data == "collected"){
+                        elementDisp.addClass("statusCollected");
+                        setTRStat.attr("claimStat", "collected");
+                    }
+                    if(data == "overdue"){
+                        elementDisp.addClass("statusOverdue");
+                        setTRStat.attr("claimStat", "overdue");
+                    }
+                }
+            });
+        });
+    });
+
+    // Set claim information on modal
+    $(".table-data").click(function(){
+        var claimid = $(this).attr("claimid");
+        selectedClaim = claimid;
+        var claimStatusContext = $(this).attr("claimStat");
+        $.ajax({
+            url: "/claim/getClaimRecord",
+            type: "GET",
+            data:{
+                id: claimid,
+            },
+            success: function(data){
+               $("#claimStat_display").text(claimStatusContext);
+               $("#transactionNo_display").text(data["transactionNo"]);
+               $("#userFullName_display").text(data["user"].fullName);
+               $("#company_display").text(data["company"]);
+               $("#billingDate_display").text(data["billing_date"]);
+
+               if(data["commission"] == null){
+                    $("#commission_display").text("Commission not yet released");
+                    $("#commissionUpdateDiv").css("display", "");
+               } else {
+                    $("#commission_display").text(data["commission"]);
+                    $("#commissionUpdateDiv").css("display", "none");
+               }
+
+               if(data["net_amt"] == null){
+                    $("#net_display").text("Net amount not yet released");
+               } else {
+                    $("#net_display").text(data["net_amt"]);
+               }
+
+               if(data["release_date"] == null){
+                    $("#releaseDate_display").text("Release date not yet settled");
+               } else {
+                    $("#releaseDate_display").text(data["release_date"]);
+               }
+
+               if(data["collection_date"] == null){
+                    $("#collectionDate_display").text("Claim is not yet collected");
+
+               } else {
+                    $("#collectionDate_display").text(data["collection_date"]);
+
+               }
+
+
+               if(data["collection_date"] == null && data["release_date"] != null) {
+                    $("#tagClaimAsCollected").css("display", "");
+               } else {
+                    $("#tagClaimAsCollected").css("display", "none");
+               }
+            }
+        });
+    });
 
     // MENU
     $(document).on('click','claims',function(){
@@ -414,6 +504,47 @@
 
     }
 }
+
+$('#submitCom').click(function(){
+        var comInput = $('#commission_input').val();
+        var netInput = $('#netAmount_input').val();
+
+        if(comInput == "" || netInput == ""){
+            alert("Please put a valid number on the input fields");
+        } else {
+            $.ajax({
+                url: "/claim/updateClaimRelease",
+                type: "POST",
+                data: {
+                    id: selectedClaim,
+                    net_amt: netInput,
+                    commission: comInput
+                }, beforeSend: function() {
+                    $("#modalLoadingTrigger").trigger("click");
+                },
+                success: function(data){
+                    location.reload();
+                }
+            });
+        }
+    });
+
+    $('#claimDone').click(function(){
+        var comInput = $('#netAmount_input').val();
+        $.ajax({
+            url: "/claim/tagClaimDone",
+            type: "POST",
+            data: {
+                id: selectedClaim
+            }, beforeSend: function() {
+                $("#modalLoadingTrigger").trigger("click");
+            },
+            success: function(data){
+                location.reload();
+            }
+        });
+    });
+
 
 </script>
 

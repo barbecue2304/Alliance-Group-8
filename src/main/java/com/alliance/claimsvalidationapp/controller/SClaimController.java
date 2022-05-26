@@ -29,7 +29,7 @@ public class SClaimController {
     @PostMapping("/addClaim")
     @ResponseBody
     public ModelAndView addClaimController(@RequestParam("invoice") MultipartFile multipartFile, @RequestParam String company, HttpSession httpSession) throws IOException, ParseException {
-        User user = (User) httpSession.getAttribute("User");
+        User user = (User) httpSession.getAttribute("user");
         String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         Date dateNow = new Date();
 
@@ -52,7 +52,7 @@ public class SClaimController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("employeePage");
+        modelAndView.setViewName("claimsEmployee");
        return  modelAndView;
     }
 

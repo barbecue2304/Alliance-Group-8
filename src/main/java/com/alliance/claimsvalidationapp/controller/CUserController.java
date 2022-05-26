@@ -1,7 +1,9 @@
 package com.alliance.claimsvalidationapp.controller;
 
+import com.alliance.claimsvalidationapp.entity.Claim;
 import com.alliance.claimsvalidationapp.entity.User;
 import com.alliance.claimsvalidationapp.service.CUserService;
+import com.alliance.claimsvalidationapp.service.ClaimService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CUserController{
     public final CUserService userservice;
+    public final ClaimService claimService;
+
     @GetMapping("/claimsEmployee")
     public String viewClaimsEmployee(){
         return "claimsEmployee";
@@ -23,7 +27,10 @@ public class CUserController{
     public ModelAndView adminAccounting(){
         ModelAndView modelAndView = new ModelAndView();
         List<User> users = userservice.getAllUser();
+        List<Claim> claims = claimService.getAllClaims();
+        modelAndView.addObject("claims", claims);
         modelAndView.addObject("users", users);
+
         modelAndView.setViewName("/adminAccounting");
         return modelAndView;
     }
