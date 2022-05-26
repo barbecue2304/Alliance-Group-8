@@ -95,7 +95,12 @@ public class CUserController{
     @ResponseBody
     public String confirmPass(@RequestParam String cpass, @RequestParam Long admID){
         return userservice.currentPassword(admID, cpass);
-    }        
+    }
+    @PostMapping("/empconfirmpassword")
+    @ResponseBody
+    public String empconfirmPass(@RequestParam String cpass, @RequestParam Long employeeID){
+        return userservice.currentPassword(employeeID, cpass);
+    }
 
 }
 
