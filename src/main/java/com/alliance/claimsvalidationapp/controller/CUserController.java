@@ -44,8 +44,8 @@ public class CUserController{
         return "redirect:claimsEmployee";
     }
     @PostMapping("/register")
-    public String addUser(@ModelAttribute User user){
-        userservice.addUser(user);
+    public String addUser(@ModelAttribute User user, @RequestParam String confPass){
+        userservice.addUser(user, confPass);
         return "redirect:adminAccounting";
     }
     @PostMapping("/edit/{id}")
@@ -84,7 +84,11 @@ public class CUserController{
         return "redirect:/adminAccounting";
     }
 
-
+    @PostMapping("/confirmpassword")
+    @ResponseBody
+    public String confirmPass(@RequestParam String cpass, @RequestParam Long admID){
+        return userservice.currentPassword(admID, cpass);
+    }        
 
 }
 
