@@ -83,8 +83,8 @@
                     <p class="mb-2 modal-body-label text-center my-2">Are you sure you want to delete your account?</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="cancelModal" data-dismiss="modal">Cancel</button>
-                    <a th:href="@{/employee/delete/}+${session.user.id}" id="deleteProfileButton" class="confirmModal">Continue</a>
+                    <button class="cancelModal btn btn-light" data-dismiss="modal">Cancel</button>
+                    <a th:href="@{/employee/delete/}+${session.user.id}" id="deleteProfileButton" class="confirmModal btn btn-success">Continue</a>
                 </div>
             </div>
         </div>
