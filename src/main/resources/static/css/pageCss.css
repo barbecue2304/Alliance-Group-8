@@ -237,7 +237,7 @@ button{
 .content-details .claims-card .claims-table tr th{
     padding: 48px 48px 10px 48px;
     text-align: center;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .content-details .claims-card .claims-table tr td{
@@ -252,7 +252,7 @@ button{
 .content-details .claims-card .claims-table tr td p{
     margin: 0;
     color: #454242;
-    font-size: 12px;
+    font-size: 10px;
 }
 .content-details .claims-card .claims-table tr td button{
     color: #FFFFFF;
@@ -315,6 +315,7 @@ button{
 .modal-body .modal-info .double p{
     margin: 0;
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
