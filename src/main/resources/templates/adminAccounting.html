@@ -127,15 +127,16 @@
 
                     <div class="sort d-flex align-items-center justify-content-around pr-3">
                         <h6>Search: </h6>
-                        <input class="searchbar" type="text">
+                        <input class="searchbar" type="text" id="searchClaimField">
                         <input type="date">
-                        <select name="" >
+                        <select name="">
                             <option value="">All</option>
+
                             <option value="">For Release</option>
                             <option value="">For Collection</option>
                             <option value="">Collected</option>
                             <option value="">Overdue</option>
-
+                          
                         </select>
                     </div>
                     <div class="claims-table pt-2 ">
@@ -508,7 +509,7 @@
 $('#submitCom').click(function(){
         var comInput = $('#commission_input').val();
         var netInput = $('#netAmount_input').val();
-
+        alert(selectedClaim);
         if(comInput == "" || netInput == ""){
             alert("Please put a valid number on the input fields");
         } else {
@@ -519,8 +520,6 @@ $('#submitCom').click(function(){
                     id: selectedClaim,
                     net_amt: netInput,
                     commission: comInput
-                }, beforeSend: function() {
-                    $("#modalLoadingTrigger").trigger("click");
                 },
                 success: function(data){
                     location.reload();
@@ -536,8 +535,6 @@ $('#submitCom').click(function(){
             type: "POST",
             data: {
                 id: selectedClaim
-            }, beforeSend: function() {
-                $("#modalLoadingTrigger").trigger("click");
             },
             success: function(data){
                 location.reload();
@@ -568,6 +565,40 @@ $('#submitCom').click(function(){
                 }
                 
             });
+    });
+</script>
+<script>
+   $(document).on('keyup','#search_field2', function(){
+        jQuery.expr[':'].contains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+        filterdata = $(this).val();
+        $('.data-card').removeClass('d-none');
+
+        var filterdata = $(this).val(); // get the value of the input, which we filter on
+        $('.table-card').find('.data-card:not(:contains("'+filterdata+'"))').addClass('d-none');
+        $('.table-card').find('.data-card trcontains("'+filterdata+'")').removeClass('d-none');
+
+   });
+
+</script>
+<script>
+
+    $(document).on('keyup','#searchClaimField', function(){
+        jQuery.expr[':'].contains = function(a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+       filterdata = $(this).val();
+       $('.table-data').removeClass('d-none');
+
+       var filterdata = $(this).val(); // get the value of the input, which we filter on
+       $('.claims-table').find('.table-data:not(:contains("'+filterdata+'"))').addClass('d-none');
+       $('.claims-table').find('.table-data trcontains("'+filterdata+'")').removeClass('d-none');
+
     });
 </script>
 </html>
