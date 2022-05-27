@@ -198,6 +198,9 @@ button{
     padding: 15px;
     background-color: #F2F2F2;
     border-radius: 5px;
+    height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 .content-details .claims-card .sort h6{
     font-weight: 600;
@@ -225,6 +228,7 @@ button{
     display:  flex;
     align-items: center;
     justify-content: center;
+    
 }
 .content-details .claims-card .claims-table tr th{
     padding: 48px 48px 10px 48px;
