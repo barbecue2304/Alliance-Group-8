@@ -57,7 +57,7 @@
                             <div class="pr-1">
                                 <button class="change" data-toggle="modal" data-target="#changePass" >Change Password</button>
                             </div>
-                            <i class='bx bxs-trash' ></i>
+                            <i class='bx bxs-trash' id="del_btn" data-toggle="modal" data-target="#deleteSessionUserModal"></i>
                         </div>
                     </div>
                 </div>
@@ -67,10 +67,10 @@
 
         <div class="tab pt-2 d-flex align-items-center justify-content-start">
             <div class="user-profile active-menu" data-target-tab="#user">
-                <h5>User Profiles</h5>
+                <h5 id="user_head">User Profiles</h5>
             </div>
             <div class="claims" data-target-tab="#claims">
-                <h5>Claims</h5>
+                <h5 id="claims_head">Claims</h5>
             </div>
         </div>
 
@@ -82,10 +82,11 @@
                     <div class="sort d-flex align-items-center justify-content-between pr-3">
                         <h6>Search: </h6>
                         <input type="text" id="search_field2">
-                        <select name="" >
+                        <select name="" id="userType">
                             <option value="">All</option>
-                            <option value="">Technical</option>
-                            <option value="">Sales</option>
+                            <option value="Accounting">Accounting</option>
+                            <option value="Technical">Technical</option>
+                            <option value="Sales">Sales</option>
                         </select>
                     </div>
 
@@ -97,6 +98,7 @@
 
                         <div class="data-card p-3 m-2" th:each="user : ${users}" th:if="${user.id} != ${session.user.id}" id="userslist">
                             <div class="row d-flex align-items-center">
+                                <p id=""></p>
                                 <div class="col-4">
                                     <h6 class="name" th:text="${user.fullName}"></h6>
                                 </div>
@@ -104,10 +106,10 @@
                                     <p class="email" th:text="${user.email}"></p>
                                 </div>
                                 <div class="col-2">
-                                    <h6 class="position" th:text="${user.usertype}"></h6>
+                                    <h6 class="position user-type" th:text="${user.usertype}"></h6>
                                 </div>
                                 <div class="col-2 text-right">
-                                    <a th:href="@{/delete/}+${user.id}"><i class='bx bxs-trash'></i></a>
+                                    <i class='bx bxs-trash' id="deleteIcon" th:attr="del_userID=${user.id}"></i>
                                 </div>
                             </div>
                         </div>
@@ -128,14 +130,13 @@
                     <div class="sort d-flex align-items-center justify-content-around pr-3">
                         <h6>Search: </h6>
                         <input class="searchbar" type="text" id="searchClaimField">
-                        <input type="date">
-                        <select name="">
+                        <select name="" id="claimStatusFilter">
                             <option value="">All</option>
 
-                            <option value="">For Release</option>
-                            <option value="">For Collection</option>
-                            <option value="">Collected</option>
-                            <option value="">Overdue</option>
+                            <option value="For Commission Release">For Release</option>
+                            <option value="For Collection">For Collection</option>
+                            <option value="Collected">Collected</option>
+                            <option value="Overdue">Overdue</option>
                           
                         </select>
                     </div>
@@ -168,6 +169,23 @@
 
 
         <!-- MODAL -->
+        <!-- Modal delete Account triggered  #deleteSessionUser -->
+        <div class="modal fade center" id="deleteSessionUserModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6>Delete your profile</h6>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-2 modal-body-label text-center my-2">Are you sure you want to delete your account?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="cancelModal" data-dismiss="modal">Cancel</button>
+                        <a th:href="@{/employee/delete/}+${session.user.id}" id="deleteProfileButton" class="confirmModal">Continue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Edit Information -->
         <div class="modal fade" id="editInfo" tabindex="-1" role="dialog">
@@ -328,11 +346,11 @@
                             <div class="d-flex justify-content-between align-items-center commissionUpdate" >
                                 <div>
                                     <label class="pt-2">Commission Rate: </label>
-                                    <input type="text" id="commission_input" class="w-75 mr-2">
+                                    <input type="text" id="commission_input" class="w-75 mr-2" required>
                                 </div>
                                 <div>
                                     <label class="pt-2">Net Amount:</label>
-                                    <input type="text" id="netAmount_input" class="w-75 ml-2">
+                                    <input type="text" id="netAmount_input" class="w-75 ml-2" required>
                                 </div>
                             </div>
                             <div class="text-right mt-3">
@@ -448,14 +466,18 @@
     });
 
     // MENU
-    $(document).on('click','claims',function(){
-        $(this).addClass('active-menu');
-        $(".claims").removeClass('active-menu');
+    $(document).on('click','.claims',function(){
+        document.getElementById("claims_head").style.color = "black";
+        document.getElementById("user_head").style.color = "#A7A1A1";
+<!--        $(this).addClass('active-menu');-->
+<!--        $(".user-profile").removeClass('active-menu');-->
     });
 
     $(document).on('click','.user-profile',function(){
-        $(this).addClass('active-menu');
-        $(".user-profile").removeClass('active-menu');
+    document.getElementById("user_head").style.color = "black";
+    document.getElementById("claims_head").style.color = "#A7A1A1";
+<!--        $(this).addClass('active-menu');-->
+<!--        $(".claims").removeClass('active-menu');-->
     });
 
 
@@ -509,7 +531,6 @@
 $('#submitCom').click(function(){
         var comInput = $('#commission_input').val();
         var netInput = $('#netAmount_input').val();
-        alert(selectedClaim);
         if(comInput == "" || netInput == ""){
             alert("Please put a valid number on the input fields");
         } else {
@@ -522,7 +543,13 @@ $('#submitCom').click(function(){
                     commission: comInput
                 },
                 success: function(data){
-                    location.reload();
+                    swal(
+                            'Claim Successfully Updated',
+                            'Net Amount and Commission Updated',
+                            'success'
+                        ).then((value) => {
+                        location.reload();
+                                    });
                 }
             });
         }
@@ -537,7 +564,13 @@ $('#submitCom').click(function(){
                 id: selectedClaim
             },
             success: function(data){
-                location.reload();
+                 swal(
+                    'Successfully Collected',
+                    'Claim successfully tagged as collected.',
+                    'success'
+                    ).then((value) => {
+                    location.reload();
+                    });
             }
         });
     });
@@ -601,4 +634,111 @@ $('#submitCom').click(function(){
 
     });
 </script>
+    <!--Dropdown filtering of claims list-->
+<script>
+     $('#claimStatusFilter').change(function(){
+        var getFilterClaimStat = $('#claimStatusFilter option:selected').val().toUpperCase();
+        $(".table-data").each(function(){
+            var dataStat = $(this).attr('claimStat').toUpperCase();
+            if(dataStat == getFilterClaimStat || getFilterClaimStat == ""){
+                $(this).show();
+            }
+            else{
+                $(this).hide();
+            }
+        });
+     });
+</script>
+<script>
+     $('#userType').change(function(){
+        var userType = $('#userType option:selected').val().toUpperCase();
+        $(".user-type").each(function(){
+            var dataUserType = $(this).html().toUpperCase();
+            if(dataUserType == userType || userType == ""){
+                $(this).parent().parent().parent().show();
+            }
+            else{
+                $(this).parent().parent().parent().hide();
+            }
+        });
+     });
+</script>
+<script>
+     $('#FilterClaimDate').change(function(){
+        var getFilterClaimDate = $(this).val();
+        $(".table-data").each(function(){
+            var dataStat = $(this).attr('claimStat').toUpperCase();
+            if(dataStat == getFilterClaimDate || getFilterClaimDate == ""){
+                $(this).show();
+            }
+            else{
+                $(this).hide();
+            }
+        });
+     });
+</script>
+<script>
+    $(document).on('click','#deleteIcon',function(){
+    adminID = $(this).attr('del_userID');
+        swal({
+            title: "Are you sure you want to delete this employee?",
+            text: "You can't undo this!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+         $.ajax({
+                url: "/delete/"+adminID,
+                type: "GET",
+                data:{},
+                success: function(data){
+                        location.reload();
+                    }
+                });
+                }
+                else{
+                    swal("No changes were made.");
+                }
+        });
+    });
+</script>
+<!--    $(document).on('click','#deleteIcon',function(){-->
+<!--        adminID = $(this).attr('del_userID');-->
+<!--        $.ajax({-->
+<!--                url: "/delete/"+adminID,-->
+<!--                type: "GET",-->
+<!--                data:{},-->
+<!--                success: function(data){-->
+<!--                swal({-->
+<!--                  title: "Are you sure you want to delete this employee?",-->
+<!--                  text: "You can't undo this!",-->
+<!--                  type: "warning",-->
+<!--                  showCancelButton: true,-->
+<!--                  confirmButtonColor: "#DD6B55",-->
+<!--                  confirmButtonText: "Yes",-->
+<!--                  cancelButtonText: "No",-->
+<!--                  closeOnConfirm: false,-->
+<!--                  closeOnCancel: false-->
+<!--                },-->
+<!--                function(isConfirm){-->
+<!--                  if (isConfirm) {-->
+<!--                    form.submit();          // submitting the form when user press yes-->
+<!--                  } else {-->
+<!--                    swal("Cancelled", "Your imaginary file is safe :)", "error");-->
+<!--                  }-->
+<!--                });-->
+<!--                    swal(-->
+<!--                        'Employee Deleted Successfully',-->
+<!--                        'Employee Has Been Deleted',-->
+<!--                        showCancelButton: 'true',-->
+<!--                        'success'-->
+<!--                        ).then((value) => {-->
+<!--                        location.reload();-->
+<!--                    });-->
+<!--                }-->
+<!--        });-->
+<!--    });-->
+
 </html>

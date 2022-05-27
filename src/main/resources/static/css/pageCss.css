@@ -102,13 +102,17 @@ button{
     cursor: pointer;
 }
 .tab .user-profile h5 {
-    color: #A7A1A1;
+    color: black;
     font-weight: 700;
     cursor: pointer;
 }
-.active-menu {
-    color: #0c0b0b;
+.tab .user-profile h5 .active-menu{
+    color: black;
 }
+.tab .claims h5 .active-menu{
+    color: black;
+}
+
 /* Content Details */
 .content-details {
     display: none;
